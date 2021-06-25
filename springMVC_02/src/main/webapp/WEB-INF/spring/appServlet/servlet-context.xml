@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model 
+		@Controller를 bean(객체)로 등록해준다. -->
+	<annotation-driven />
+	
+	<!-- css, js, img가 들어갈 위치(정적 파일을 올리는 위치 지정) -->
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/img/**" location="/resources/img/" />
+	<resources mapping="/css/**" location="/resources/css/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 파일의 앞에 경로와 뒤에 .jsp를 붙여주는 역할 (ViewResolver) -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 해당하는 위치, 또는 하위의 패키지 안에 있는 annotation들을 bean으로 등록 -->
+	<context:component-scan base-package="com.care.root" />
+	<!-- <context:component-scan base-package="com.care.di_ex01" />  -->
+	<context:component-scan base-package="com.care.di_ex02" />
+	<context:component-scan base-package="com.care.get_post" />
+
+	<beans:bean id="ser" class="com.care.di_ex02.MemberService"/>
+	
+</beans:beans>
